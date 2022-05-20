@@ -1,0 +1,5 @@
+abra o programa arduino
+em exemplos procure arduinoISP
+em ferramentas programador 
+arduino as ISP
+gravar bootloader

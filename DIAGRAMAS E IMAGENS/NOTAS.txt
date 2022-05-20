@@ -1,0 +1,17 @@
+int *ptr=NULL,   /* ptr é ponteiro para inteiro,
+var é uma variável comum. */
+var = 10; /* var recebe o valor 10 */
+ptr = &var; /* ptr apontará para o endereço de var */
+
+printf(“%d\n”, var); /* imprime o conteúdo de var, 10 no caso */
+printf(“%p\n”, ptr); /* imprime o endereço de var */
+printf(“%d\n”, *ptr); /* imprime o conteúdo de var, 10 no caso */
+printf(“%p\n”, &ptr); /* imprime o endereço de ptr, pois
+um ponteiro também existirá em um
+endereço da memória */
+*ptr = 35; /* esta linha atualiza o conteúdo de var
+para 35 */
+printf(“%d\n”, var); /* imprime o conteúdo de var, 35 no caso */
+
+FOR (; ; ) // FOR SEM OS ARGUMENTOS VIRA UM LOOP INFINITO
+PILHA DE MEMORIA.
