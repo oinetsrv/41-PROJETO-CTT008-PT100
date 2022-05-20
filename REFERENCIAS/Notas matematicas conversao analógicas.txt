@@ -1,0 +1,1 @@
+Para a ponte de Wheatstone, a fórmula matemática para calcular as resistências necessárias para o valor Vout ser igual a zero é Vout = Vc - Vd = [ R2 / ( R1 + R2 ) ] * Vin - [ R4 / ( R3 + R4 ) ] * Vin. Nessa condição, pode-se usar a relação entre os resistores R1 / R2 = R3 / R4

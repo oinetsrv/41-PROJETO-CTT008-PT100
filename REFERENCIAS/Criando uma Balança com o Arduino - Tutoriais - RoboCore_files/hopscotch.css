@@ -1,0 +1,35 @@
+/*
+
+    Name:       Hopscotch
+    Author:     Jan T. Sott
+
+    CodeMirror template by Jan T. Sott (https://github.com/idleberg/base16-codemirror)
+    Original Base16 color scheme by Chris Kempson (https://github.com/chriskempson/base16)
+
+*/
+
+.cm-s-hopscotch.CodeMirror {background: #2c2d30; color: #e2e3e4;}
+.cm-s-hopscotch div.CodeMirror-selected {background: #3b3f43 !important;}
+.cm-s-hopscotch .CodeMirror-gutters {background: #292e32; border-right: 0px;}
+.cm-s-hopscotch .CodeMirror-linenumber {color: #737679;}
+.cm-s-hopscotch .CodeMirror-cursor {border-left: 1px solid #989498 !important;}
+
+.cm-s-hopscotch span.cm-comment {color: #727e8a;}
+.cm-s-hopscotch span.cm-atom {color: #f47196;}
+.cm-s-hopscotch span.cm-number {color: #3fec87;}
+
+.cm-s-hopscotch span.cm-property, .cm-s-hopscotch span.cm-attribute {color: #49c7f8;}
+.cm-s-hopscotch span.cm-keyword {color: #f9666b;}
+.cm-s-hopscotch span.cm-string {color: #fdcc59;}
+
+.cm-s-hopscotch span.cm-variable {color: #38b4e5;}
+.cm-s-hopscotch span.cm-variable-2 {color: #1290bf;}
+.cm-s-hopscotch span.cm-def {color: #fd8b19;}
+.cm-s-hopscotch span.cm-error {background: #f9666b; color: #2c2d30 !important;}
+.cm-s-hopscotch span.cm-bracket {color: #f6f7f8;}
+.cm-s-hopscotch span.cm-tag {color: #f9666b;} 
+.cm-s-hopscotch span.cm-link {color: #f47196;}
+
+.cm-s-hopscotch .CodeMirror-matchingbracket { text-decoration: underline; color: white !important;}
+.cm-s-hopscotch .CodeMirror-activeline-background { background: #302020; }
+.CodeMirror-matchingtag {background: rgba(119, 126, 130, 0.25);}
