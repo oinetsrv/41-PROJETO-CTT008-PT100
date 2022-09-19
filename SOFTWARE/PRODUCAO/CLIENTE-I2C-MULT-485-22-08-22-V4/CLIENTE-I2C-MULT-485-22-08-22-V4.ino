@@ -160,7 +160,7 @@ void setup() {
     wdt_disable     (               );                      // desativa o dog
     Serial.begin    (9600           );   
     delay           (100            );                      // parte porta serial debug                     
-    Serial.println  ("CLIENTE-I2C-MULTI-485-29-03-22-V3");
+    Serial.println  ("CLIENTE-I2C-MULT-485-22-08-22-V4");
     Serial.flush    (               ); 
     mySerial.begin  (9600           );                      // parte porta serial debug
     pinMode         (rxPin,  INPUT  );                      // definir modo do pino Rx
@@ -168,7 +168,7 @@ void setup() {
     pinMode         (MASTER, OUTPUT );                      // definir pino que controla rede 485
     digitalWrite    (MASTER, LOW    );                      // parte porta com nível lógico baixo.  
     wdt_enable      (WDTO_8S        );                      // ativa o wachdog  
-    delay(100);     
+    //delay(100);     
     /*  notas de configuração de wachdog e ganho dos conversores A/D
             #define WDTO_15MS,30MS,60MS,120MS,250MS,500MS,1S,2S,4S,8S 
             // partiu adc ads.setGain(GAIN_ONE      1x gain   +/- 4.096V  1 bit = 0.125mV
@@ -193,32 +193,57 @@ void setup() {
     bit_B  = digitalRead(Pbit_B);
     // definindo endereço baseado nos pinos de config
     Gerenciador_endereco();
-    conversor = 8;                  // 1 para um par; 8 para 8 pares 
+    int rest = end_cliente_num % 2;
+    if (rest  ==  0)
+    {
+        conversor = 8;
+        //Serial.println  (" rest com 8");
+    }else{
+        conversor = 1;
+        //Serial.println  (" rest com 2");
+        
+    }
+    
+                      // 1 para um par; 8 para 8 pares 
     silencio            =     0;                            // 0 não ativar rede 485,1 ativar rede 485
-    adc_off_set_G       =    0;   //42?                         // define off set conversor
+    adc_off_set_G       =     0;   //42?                         // define off set conversor
+    
     fator_calibracao_G  = 6.1810;                           // define fator de calibração
     if (conversor   >   0)    // PARTIDA DO CONVERSOR 1
     {
         ads_48.setGain  (GAIN_SIXTEEN);
-        ads_48.begin    (0x48);
+       ads_48.begin    (0x48);
     }// END IF  
-    int rest = end_cliente_num % 2;
-    if (conversor   ==  8 && rest ==0 )  // PARTIDA DOS CONVERSORES 2 AO 4
+    
+    if ( rest  ==  0 )  // PARTIDA DOS CONVERSORES 2 AO 4
     {
+        Serial.println  (" ENDERECO PAR!");
         ads_49.setGain  (GAIN_SIXTEEN);  
         ads_49.begin    (0x49);
+        
         ads_4A.setGain  (GAIN_SIXTEEN); 
         ads_4A.begin    (0x4A);
+        
         ads_4B.setGain  (GAIN_SIXTEEN); 
-        ads_4B.begin    (0x4B); 
+        ads_4B.begin    (0x4B);
+        // debug para indentificar a falta de um conversor
+        // essa ideia deve ser melhorada!!!!
+        float   asad = ads_48.readADC_Differential_2_3();
+                Serial.println  ("ads_48");
+                asad = ads_49.readADC_Differential_2_3();
+                Serial.println  ("ads_49");
+                asad = ads_4A.readADC_Differential_2_3();
+                Serial.println  ("ads_4A");
+                asad = ads_4B.readADC_Differential_2_3(); 
+                Serial.println  ("ads_4B");
+        
     }// END IF
     wdt_reset();
     if (conversor   >   0)    // DEBUG VIA 485 E SELECIONA ENDEREÇO CLIENTE
     {
         partiu          (conversor);
-        
-        if (conversor == 1) Serial.println  (" com 2");
-        if (conversor == 8) Serial.println  (" com 8");
+        if (rest != 0) Serial.println  (" com 2");
+        if (rest == 0) Serial.println  (" com 8");
         Serial.print  ("\nM:");
         String end_cl = "",msg_c="";                          
         switch (end_cliente_num)
@@ -326,13 +351,19 @@ wdt_reset();
             delay           (1000           );
         }// end if
     ciclos1++;
+    // BLOCO CALIBRAR
     //imprimir_serial();          //// Debug com valor bruto ADC ocupa 10% memória dinamica
     //imprimir_serial_temp();     //  / debug para ajuste de sistema MOSTRA TEMPERATURA CONVERTIDA
+    //delay(1000);
+    // BLOCO CALIBRAR
     int silencio = 1;                  // ativa rede 
     wdt_reset();
+
     // FUNÇÃO QUE LE PORTA SERIAL OU 485 E RESPONDE A DEMANDA
     Proto_485_V1(silencio);
     Gerenciador_rede();
+    delay(100);
+
     // criar função que fica disparando chamadas para clientes cadastrados
     // função que envia comando para resposta de cliente
     if (Serial.available())
@@ -343,7 +374,7 @@ wdt_reset();
         }// end else
 
     // end
-    delay(500);
+    
         if ((ciclos1%100)==0)
         {
             Serial.println  (ciclos1        );// a cada segundo
