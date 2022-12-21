@@ -212,7 +212,8 @@ void setup() {
     if (conversor   >   0)    // PARTIDA DO CONVERSOR 1
     {
         ads_48.setGain  (GAIN_SIXTEEN);
-       ads_48.begin    (0x48);
+        ads_48.begin    (0x48);
+        Serial.println  ("ads_48");
     }// END IF  
     
     if ( rest  ==  0 )  // PARTIDA DOS CONVERSORES 2 AO 4
@@ -366,12 +367,7 @@ wdt_reset();
 
     // criar função que fica disparando chamadas para clientes cadastrados
     // função que envia comando para resposta de cliente
-    if (Serial.available())
-        {
-             
-        }else{
-
-        }// end else
+ 
 
     // end
     
